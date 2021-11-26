@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servlet 테스트2</title>
+</head>
+<body>
+    <h3>1. chceckbox 또는 name 속성 값이 같은 input 태그 값 서버로 전달하기</h3>
+    <form action="/ServletProject2/test1" method="get">
+
+        이름 : <input type="text" name="inputName">  <br>
+
+        성별 :
+
+        <!-- radio는 여러 개가 존재해도 하나만 선택되어 서버로 제출되어진다
+            -> 서버에 한 개만 넘어간다
+        -->
+        남 <input type="radio" name="gender" value="남">
+        여 <input type="radio" name="gender" value="여">
+
+        <br>
+
+        <!-- name속성이 같은 input이 여러 개 서버로 전달되는 경우
+            서버에서 배열 형태로 받을 수 있다.
+        -->
+        취미 :
+        축구 <input type="checkbox" name="hobby" value="축구">
+        농구 <input type="checkbox" name="hobby" value="농구">
+        야구 <input type="checkbox" name="hobby" value="야구">
+
+        <br>
+        
+        해시태그 :
+        <input type="text" name="hashtag">
+        <input type="text" name="hashtag">
+        <input type="text" name="hashtag">
+
+        <button>제출</button>
+    </form>
+
+</body>
+</html>

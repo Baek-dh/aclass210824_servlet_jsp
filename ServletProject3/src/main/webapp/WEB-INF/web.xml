@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
+  <display-name>ServletProject3</display-name>
+  
+  <!-- web.xml : 배포 서술자 -->
+  
+  <!-- 메인 페이지로 지정할 파일 목록 -->
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+  </welcome-file-list>
+  
+  
+  <!-- 특정 클래스를 Servlet으로 지정 -->
+  <servlet>
+  	<servlet-name>signUp</servlet-name>
+  	<servlet-class>edu.kh.servlet.controller.SignUpServlet</servlet-class>
+  </servlet>
+  
+  <!-- 요청되는 주소를 처리할 Servlet 지정 -->
+  <servlet-mapping>
+  	<servlet-name>signUp</servlet-name>
+  	<url-pattern>/signUp</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</web-app>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ServletProject3</title>
+</head>
+<body>
+    <!-- get 방식은 주소에 값을 담아 전달하기 때문에
+        비밀번호같은 노출되면 안되는 값이 포함되어 문제가 발생하게된다
+        -> 이럴 때는 post 방식을 사용!
+    -->
+    <form action="/ServletProject3/signUp" method="post">
+        ID : <input type="text" name="memberId"> 
+        <br>
+        PW : <input type="password" name="memberPw">
+        <br>
+        이름 : <input type="text" name="memberName">
+        <br>
+        이메일 : <input type="email" name="memberEmail"> 
+
+        <br>
+        <button>회원가입</button>
+    </form>
+
+
+    <hr>
+
+    <h3>로그인</h3>
+    <form action="/ServletProject3/login" method="post">
+        ID : <input type="text" name="inputId">  <br>
+        PW : <input type="password" name="inputPw"> <br>
+        <input type="checkbox" name="saveId"> 아이디 저장
+        <button>로그인</button>
+    </form>
+
+
+</body>
+</html>

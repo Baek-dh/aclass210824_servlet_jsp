@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serlvet 프로젝트 테스트</title>
+</head>
+<body>
+    <h1> index.html은 메인 페이지 역할을 합니다  </h1>
+
+    <hr>
+
+    <!-- 
+        form 태그 : 내부에 작성된 input 태그의 값을 서버로 전달하는 역할
+        action 속성 : 값을 전달할 서버 주소 작성
+        method 속성 : 데이터 전달 방식
+        - get  : 주소 뒤에 input 태그 값을 붙여서 전달 (데이터 직접 보임)
+        - post : HTTP Body에 값을 담아서 전달 (데이터 직접 안보임)
+     -->
+
+    <form action="/ServletProject/example1.do" method="get">
+        이름 : <input type="text" name="inputName"> <br>
+        나이 : <input type="number" name="inputAge">
+        <button>제출</button>
+    </form>
+
+    <hr>
+
+    <form action="/ServletProject/ex2" method="get">
+        음식 : <input type="text" name="food" required> <br>
+
+        몇인분? 
+        <select name="amount">
+            <option value="1">1인분</option>
+            <option value="2">2인분</option>
+            <option value="3">3인분</option>
+        </select>
+        <br>
+
+        요청사항 <br>
+        <textarea name="message" rows="3" cols=50></textarea>
+
+        <button>주문</button>
+    </form>
+
+
+    <hr>
+    <!-- 자유롭게 테스트 -->
+    <form action="/ServletProject/ex3.do" method="get">
+        사이즈 : 
+        <select name="size">
+            <option value="small">S</option>
+            <option value="midium">M</option>
+            <option value="large">L</option>
+        </select>
+        <br>
+
+        수량 : <input type="range" name="amount" min="1" max="5">
+        <br>
+
+        색상 :
+        빨강  <input type="radio" name="color" value="red">
+        파랑  <input type="radio" name="color" value="blue">
+        노랑  <input type="radio" name="color" value="yellow">
+
+        <button>주문</button>
+    </form>
+
+
+
+</body>
+</html>

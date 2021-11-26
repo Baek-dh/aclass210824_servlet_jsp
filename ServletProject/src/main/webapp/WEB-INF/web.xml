@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
+  <display-name>ServletProject</display-name>
+  
+  <!-- 서버 접속 시 메인 화면으로 지정할 파일을 작성하는 부분 -->
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  
+  
+  <!-- Servlet 등록 -->
+  <servlet>
+  	<servlet-name>Example1</servlet-name>
+	<servlet-class>edu.kh.servlet.Example1Servlet</servlet-class>  	
+  </servlet>
+
+  
+  <!-- form태그 action 주소로 제출 되었을 때
+  	   연결할 servlet 지정
+   -->
+  <servlet-mapping>
+  	<servlet-name>Example1</servlet-name>
+  	<url-pattern>/example1.do</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+  <!-- web.xml파일 == 배포 서술자  -->
+  
+  <!-- 어떤 class 파일을 servlet으로 등록하고 이름은 뭐라고 부를 것인지 지정 -->
+  <servlet>
+  	<servlet-name>ex2</servlet-name>
+  	<servlet-class>edu.kh.servlet.Example2Servlet</servlet-class>
+  </servlet>
+  
+  
+  <!-- 요청 주소를 어떤 servlet이랑 연결할지 지정 -->
+  <servlet-mapping>
+  	<servlet-name>ex2</servlet-name>
+  	<url-pattern>/ex2</url-pattern>
+	<!-- 요청 주소 중 제일 앞 프로젝트명은 제외 -->
+  </servlet-mapping>
+  
+  
+  
+  <servlet>
+ 	<servlet-name>ex3</servlet-name>
+  	<servlet-class>edu.kh.servlet.Example3Servlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>ex3</servlet-name>
+  	<url-pattern>/ex3.do</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+  
+  
+  
+</web-app>
