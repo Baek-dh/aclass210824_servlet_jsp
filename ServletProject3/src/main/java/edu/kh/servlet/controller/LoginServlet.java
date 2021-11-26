@@ -36,6 +36,27 @@ public class LoginServlet extends HttpServlet{
 		System.out.println(inputId);
 		System.out.println(inputPw);
 		System.out.println(saveId);
+	
+		
+		// 파라미터가 아닌 새로운 값을 JSP에 위임(발송)하는 방법
+		String name = "아무개";
+		
+		if( inputId.equals("user01") ) { // 입력 받은 id가 user01인 경우
+			name = "홍길동";
+		}
+		
+		// name은 요청을 처리해서 만들어진 결과물
+		// -> name을 HttpServletRequest 객체에 담아서 JSP로 위임
+		
+		req.setAttribute("name", name); // Key : Value 형태로 req 객체에 세팅
+		
+		// setAttribute(String name, Object o)
+		
+		// Value(두번째 매개변수)의 자료형이 Object로 설정되어 있다
+		// == 모든 객체를 매개변수로 전달할 수 있다  (Object는 최상위 부모, 매개변수 다형성)
+		// ==> 매개변수로 들어온 모든 객체의 Object 부분만을 참조할 수 있게된다
+		
+		
 		
 		
 		// 응답 화면을 만들기 위해 요청 발송자를 이용해서 jsp로 전송

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	
+	<entry key="signUp">
+		INSERT INTO TB_MEMBER
+		VALUES(SEQ_MEMBER_NO.NEXTVAL , ?, ?, ?, ?)
+	</entry>
+	
+</properties>

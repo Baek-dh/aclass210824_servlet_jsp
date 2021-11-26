@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<!-- 주석 -->
+	<entry key="driver">oracle.jdbc.driver.OracleDriver</entry>
+	<entry key="url">jdbc:oracle:thin:@115.90.212.22:9000:xe</entry>
+	<entry key="user">servlet</entry>
+	<entry key="pass">servlet1234</entry>
+</properties>

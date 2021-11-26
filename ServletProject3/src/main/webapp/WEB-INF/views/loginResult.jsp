@@ -55,6 +55,14 @@
 
 
 
+	<h1>전달된 name 확인</h1>
+	
+	<% String name =  (String)request.getAttribute("name");  %>
+	
+	<h1 style="color:blue"><%= name %></h1>
+	
+	
+
 
 
 </body>
