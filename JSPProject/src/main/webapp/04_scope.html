@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>04. Servlet/JSP 내장 객체 범위(scope)</title>
+</head>
+<body>
+    
+    <h1>Servlet/JSP 내장 객체</h1>
+
+    <pre>
+        Servlet / JSP에는 기본적으로 내장되어있는 객체가 존재함.
+
+        총 4종류가 존재하며 각각 영향을 미칠 수 있는 범위가 다름.
+
+        1. page scope : 현재 페이지
+        -> 현재 Servlet 또는 현재 JSP 에서만 사용 가능
+
+        2. request scope
+        -> 요청 받은 Servlet/JSP  +  요청 위임한 Serlvet/JSP  
+           (2페이지 이상)
+
+        3. session scope
+        -> 사이트에 접속한 브라우저당 1개씩 생성.
+           같은 브라우저 끼리 공유.
+           브라우저 종료 또는 세션 만료 시 소멸.
+           브라우저가 종료되지 않거나 세션이 만료되지 않으면 계속 유지.
+
+        - 원리 간단 설명 : 
+            클라이언트가 서버 접속 
+            -> 클라이언트 접속한 브라우저 당 session 1개 생성해서 저장
+            -> 브라우저 종료 시 까지 session유지
+
+        4. application scope
+            -> 하나의 웹 애플리케이션 당 1개 생성.
+            -> 서버 종료 전 까지 웹 애플리케이션 어디서든 사용 가능.
+    </pre>
+
+</body>
+</html>
