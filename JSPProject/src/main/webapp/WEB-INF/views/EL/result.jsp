@@ -99,6 +99,14 @@
 	2) EL 로 List가 비어있는지 확인 : ${empty list} <br>
 
 
+	<hr>
+	
+	request 확인 : ${requestScope.reqValue }   <br>
+	session 확인 : ${sessionScope.sessionValue }  <br>
+	application 확인 : ${applicationScope.appValue }
+
+
+
 
 </body>
 </html>
