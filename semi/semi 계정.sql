@@ -140,9 +140,43 @@ CREATE SEQUENCE SEQ_BOARD_NO; -- 게시글 번호 시퀀스
 CREATE SEQUENCE SEQ_REPLY_NO; -- 댓글 번호 시퀀스
 
 
+--------------------------------------------------------------------------------
+-- 샘플 데이터 --
+
+-- 회원 상태 테이블
+INSERT INTO MEMBER_STATUS VALUES(100, '정상');
+INSERT INTO MEMBER_STATUS VALUES(101, '탈퇴');
+INSERT INTO MEMBER_STATUS VALUES(102, '정지');
+
+SELECT * FROM MEMBER_STATUS;
+COMMIT;
+
+-- 회원 등급 테이블
+INSERT INTO MEMBER_GRADE VALUES(200, '일반회원');
+INSERT INTO MEMBER_GRADE VALUES(201, '관리자');
+
+SELECT * FROM MEMBER_GRADE;
+COMMIT;
 
 
+-- 회원 테이블
 
+INSERT INTO MEMBER
+VALUES(SEQ_MEMBER_NO.NEXTVAL, 'user01', 'pass01!', '유저일',
+       '010-1234-1234', 'user01@kh.or.kr', 
+       '서울시 중구 남대문로 120 대일빌딩 2층 KH정보교육원',
+       DEFAULT, 100, 200);
+
+COMMIT;
+
+-- 로그인 SQL
+-- 탈퇴회원 제외
+SELECT MEMBER_NO, MEMBER_NM, MEMBER_PHONE, MEMBER_EMAIL, MEMBER_ADDR,
+       ENROLL_DT, STATUS_CD, GRADE_CD
+FROM MEMBER
+WHERE MEMBER_ID = 'user01'
+AND MEMBER_PW = 'pass01!'
+AND STATUS != 101;
 
 
 

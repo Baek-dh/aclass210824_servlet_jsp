@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import edu.kh.semi.member.model.service.MemberService;
+import edu.kh.semi.member.model.vo.Member;
+
 // MVC Model2 패턴 
 // Model View Controller의 약자로
 // 백엔드, 프론트엔드를 구분해서 협업을 원할하게 진행할 수 있게 하는 디자인 패턴
@@ -41,7 +44,14 @@ public class LoginServlet extends HttpServlet{
 		try {
 			// DB 연결 중 발생하는 예외를 모두 Controller에 모아서 일괄 처리
 			
+			// 1) Service 객체 생성
+			MemberService service = new MemberService();
 			
+			// 2) 로그인 Service 메소드 호출 후 결과 반환 받기
+			Member loginMember = service.login(memberId, memberPw);
+			
+			// 중간 확인
+			System.out.println(loginMember);
 			
 		}catch (Exception e) {
 			e.printStackTrace();
