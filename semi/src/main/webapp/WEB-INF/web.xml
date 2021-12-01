@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
+  <!-- web.xml : 배포 서술자 
+  	-> 프로젝트가 배포될 때 필요한 내용, 설정을 작성하는 파일
+  	-> 서버 실행 시 가장 먼저 읽어지는 파일
+  -->
+  
   <display-name>semi</display-name>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
@@ -9,4 +14,12 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  
+  <!-- DBCP 설정 자원 위치 -->
+  <resource-ref>
+    <description>Oracle Datasource</description>
+    <res-ref-name>jdbc/oracle</res-ref-name>
+    <res-type>javax.sql.DataSource</res-type>
+    <res-auth>Container</res-auth>
+  </resource-ref> 
 </web-app>

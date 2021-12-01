@@ -26,4 +26,32 @@
     <!--
     <Manager pathname="" />
     -->
+    
+    <!-- DBCP(DataBase Connection Pool) 세팅 -->
+    <Resource 
+    	name="jdbc/oracle"
+    	auth="Container"
+    	type="javax.sql.DataSource"
+    	driverClassName="oracle.jdbc.OracleDriver"
+    	url="jdbc:oracle:thin:@127.0.0.1:1521:xe"
+    	username="semi"
+    	password="semi1234!"
+    	
+    	maxTotal="200"
+    	maxIdle="20"
+    	maxWaitMillis="-1"
+    	
+    />
+    
+    <!-- 
+    	maxTotal : 최대 커넥션 개수
+    	maxIdle : 평소에 생성되어있는 커넥션의 최대 개수
+    	maxWaitMillis : 커넥션이 반환되는 최대 시간(음수면 무제한)
+     -->
+    
+    
+    
+    
+    
+    
 </Context>

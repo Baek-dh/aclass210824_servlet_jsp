@@ -1,0 +1,41 @@
+/* 폰트 */
+@font-face {
+	font-family: 'GmarketSansBold';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansBold.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+
+/* 바디 태그 상단을  56px 만큼 밑으로 내려 header 영역 만큼의 공백을 만듦 */
+body {	padding-top: 56px; }
+
+
+/* 메인페이지 백그라운드 이미지 */
+.bg-image-full {
+	background: no-repeat center center scroll;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	background-size: cover;
+	-o-background-size: cover;
+}
+
+.bg-image-full {
+	height: 300px;
+	text-align: center;
+}
+
+.bg-image-full>h1 {
+	color: white;
+	position: relative;
+	top: 50px;
+	font-size: 3em;
+	font-family: 'GmarketSansBold';
+	text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+}
+
+
+
+
