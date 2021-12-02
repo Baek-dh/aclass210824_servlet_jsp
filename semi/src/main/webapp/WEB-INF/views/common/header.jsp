@@ -46,7 +46,24 @@
 					<!-- 로그인 버튼 -->
 					<%-- Modal 동작 버튼은 data-toggle="modal" 속성과 href 속성값으로 보여질 Modal 영역 id를 작성하면된다. --%>
 
-					<li class="nav-item active"><a class="nav-link" data-toggle="modal" href="#login-modal">Login</a></li>
+					<c:choose> 
+						
+						<c:when test="${ empty sessionScope.loginMember }">
+							<%-- 로그인이 되어 있지 않을 때 --%>
+							<li class="nav-item active"><a class="nav-link" data-toggle="modal" href="#login-modal">Login</a></li>
+						</c:when>
+					
+						<c:otherwise>
+							<%-- 로그인이 되어 있을 때 --%>
+							<li class="nav-item active"><a class="nav-link" href="#">${sessionScope.loginMember.memberName}</a></li>
+							<li class="nav-item active"><a class="nav-link" href="${contextPath}/member/logout">Logout</a></li>
+																				<!-- /semi/member/logout 으로 요청 (a태극 모두 get방식)  -->
+						</c:otherwise>
+					
+					</c:choose>
+
+			
+				
 
 				</ul>
 			</div>
@@ -75,12 +92,30 @@
 					<!-- onsubmit을 이용하여 로그인 시 입력 받은 값이 유효한지 판별 -->
 					<form class="form-signin" method="POST" action="${contextPath}/member/login" onsubmit="return loginValidate()">
 
-						<input type="text" class="form-control" id="memberId" name="memberId" placeholder="아이디"> <br> 
+						<input type="text" class="form-control" 
+								id="memberId" name="memberId" placeholder="아이디"
+								value="${ cookie.saveId.value }"> <br> 
+							<%-- EL을 이용한 Cookie 접근 --%>
+						
 						<input type="password" class="form-control" id="memberPw" name="memberPw" placeholder="비밀번호"> <br>
 
 						<div class="checkbox mb-3">
 							<label> 
-								<input type="checkbox" name="save" id="save"> 아이디 저장
+									
+								<%-- 쿠키에 saveId 값이 있을 때--%>
+								<c:if test="${ !empty cookie.saveId.value  }">
+									<c:set var="chk" value="checked" />
+									<%-- "checked"라는 값을 가진 chk 변수 생성 
+										-> c:set으로 생성된 변수는 기본적으로 page scope
+											== 해당 페이지 어디서든 사용 가능
+											== if문의 지역변수가 아니다!
+									--%>
+									
+								</c:if>
+							
+								<input type="checkbox" name="save" id="save" ${chk}> 아이디 저장
+								<%-- EL은 null을 "" (빈칸)으로 표현 --%>
+								
 							</label>
 						</div>
 
@@ -88,7 +123,7 @@
 						<button class="btn btn-lg btn-primary btn-block" type="submit">로그인</button>
 
 
-						<a class="btn btn-lg btn-secondary btn-block" href="#">회원가입</a>
+						<a class="btn btn-lg btn-secondary btn-block" href="${contextPath}/member/signup">회원가입</a>
 					</form>
 				</div>
 				

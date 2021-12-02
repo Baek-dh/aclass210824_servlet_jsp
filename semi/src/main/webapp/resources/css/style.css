@@ -37,5 +37,20 @@ body {	padding-top: 56px; }
 }
 
 
+/* number 태그 화살표 제거 */
+input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button{
+    -webkit-appearance: none;
+    margin: 0;
+}
 
+/* 필수 입력 빨간 별표시 */
+.required:after{
+    color : red;
+    font-weight: bold;
+    content: "*";
+}
 
+/* 유효성 검사 메시지 출력 부분 */
+.validity-msg{
+    display: inline-block;
+}

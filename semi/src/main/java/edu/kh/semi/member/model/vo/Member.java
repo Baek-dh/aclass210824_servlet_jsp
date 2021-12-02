@@ -16,6 +16,20 @@ public class Member {
 	private int gradeCode;
 	
 	public Member() {} // 기본 생성자
+	
+	// 회원 가입 시 사용 되는 생성자
+	public Member(String memberId, String memberPw, String memberName, String memberPhone, String memberEmail,
+			String memberAddress) {
+		super();
+		this.memberId = memberId;
+		this.memberPw = memberPw;
+		this.memberName = memberName;
+		this.memberPhone = memberPhone;
+		this.memberEmail = memberEmail;
+		this.memberAddress = memberAddress;
+	}
+
+
 
 	// getter/setter
 	public int getMemberNo() {

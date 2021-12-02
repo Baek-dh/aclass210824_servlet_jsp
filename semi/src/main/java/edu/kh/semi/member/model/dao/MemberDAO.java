@@ -95,6 +95,45 @@ public class MemberDAO {
 		// 8) 결과 반환
 		return loginMember;
 	}
+
+
+	/** 회원 가입 DAO
+	 * @param member
+	 * @param conn
+	 * @return result(1 성공)
+	 * @throws Exception
+	 */
+	public int signUp(Member member, Connection conn) throws Exception{
+		
+		// 1) 결과 저장용 변수 선언
+		int result = 0;
+		
+		try {
+			// 2) SQL 얻어오기
+			String sql = prop.getProperty("signUp");
+			
+			// 3) pstmt 객체 생성 및 sql 적재
+			pstmt = conn.prepareStatement(sql);
+			
+			// 4) 위치홀더에 알맞은 값 세팅
+			pstmt.setString(1, member.getMemberId());
+			pstmt.setString(2, member.getMemberPw());
+			pstmt.setString(3, member.getMemberName());
+			pstmt.setString(4, member.getMemberPhone());
+			pstmt.setString(5, member.getMemberEmail());
+			pstmt.setString(6, member.getMemberAddress());
+			
+			// 5) SQL 수행 후 결과 반환 받기
+			result = pstmt.executeUpdate();
+			
+		}finally {
+			// 6) 사용한 JDBC 자원 반환
+			close(pstmt);
+		}
+		
+		// 7) 결과 반환
+		return result;
+	}
 	
 	
 	

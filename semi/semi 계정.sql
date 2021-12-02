@@ -179,6 +179,32 @@ AND MEMBER_PW = 'pass01!'
 AND STATUS_CD != 101;
 
 
+-- 정지 회원 샘플데이터
+INSERT INTO MEMBER
+VALUES(SEQ_MEMBER_NO.NEXTVAL, 'user02', 'pass02!', '유저이',
+       '010-1234-1234', 'user02@kh.or.kr', 
+       '서울시 중구 남대문로 120 대일빌딩 2층 KH정보교육원',
+       DEFAULT, 102, 200);
+
+COMMIT;
+
+
+-- MEMBER_PW 컬럼 크기 변경
+ALTER TABLE MEMBER MODIFY MEMBER_PW VARCHAR2(100);
+
+-- user01 비밀번호 변경
+UPDATE MEMBER SET
+MEMBER_PW = 'aBN5hiegXlvAovJLipPoPd5LB+xjPrAeu1tcAVg0p5MKGocvo6l825SD+ZMCOcHBFeGB7MnzH31SAnDzYYsSdg=='
+WHERE MEMBER_ID = 'user01';
+
+COMMIT;
+
+
+-- STATUS_CD 기본값 지정
+ALTER TABLE MEMBER MODIFY STATUS_CD DEFAULT 100;
+
+-- GRADE_CD 기본값 지정
+ALTER TABLE MEMBER MODIFY GRADE_CD DEFAULT 200;
 
 
 
