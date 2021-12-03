@@ -16,7 +16,7 @@
 	<entry key="signUp">
 		INSERT INTO MEMBER
 		VALUES(SEQ_MEMBER_NO.NEXTVAL, ?, ?, ?, ?, ?, ?, DEFAULT, DEFAULT, DEFAULT)
-		
+
 	</entry>
 	
 	

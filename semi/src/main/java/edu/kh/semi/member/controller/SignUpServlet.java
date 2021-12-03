@@ -2,11 +2,13 @@ package edu.kh.semi.member.controller;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import edu.kh.semi.member.model.service.MemberService;
 import edu.kh.semi.member.model.vo.Member;
@@ -60,6 +62,9 @@ public class SignUpServlet extends HttpServlet {
 		
 		if(!address[0].equals("")) { // 우편 번호가 있음 == 주소를 작성함
 			memberAddress = String.join(",,", address);
+			
+			// 크로스사이트 스크립트 방지 처리
+			memberAddress = replaceParameter(memberAddress);
 		}
 		
 		
@@ -75,17 +80,85 @@ public class SignUpServlet extends HttpServlet {
 			int result = service.signUp(member);
 			
 			// 중간확인
-			System.out.println("result : " + result);
+			//System.out.println("result : " + result);
+			
+			// 결과에 따라서 화면에 경고창(alert) 출력
+			
+			String message = null;
+			
+			if(result > 0) { // 회원 가입 성공 시
+				message = "회원 가입 성공!";
+			}
+			
+			// redirect를 할 예정이기 때문에
+			// req를 사용한 값 전달이 불가능함
+			// -> 그래서 범위가 한단계 더 높은 session 사용
+			
+			HttpSession session = req.getSession();
+			session.setAttribute("message", message);
+			
+			
+			// 메인 페이지로 돌아갈 예정 
+			// -> 이미 메인페이지를 보여주는 서비스가 구현되어 있음
+			// --> 해당 서비스를 요청 
+			// ---> 요청 받은 Servlet이 다른 Servlet을 요청 == 재요청(redirect)
+			resp.sendRedirect(req.getContextPath());
+			
+			// redirect 시 기존 req, resp 객체 삭제하고 
+			// 재요청 시 새롭게 생성
 			
 			
 		}catch (Exception e) {
 			e.printStackTrace();
 			
+			// HTTP 상태 코드 - 500 Internal Server Error
+			// - 백엔드에서 발생한 에러
+			// - 로직 수행에 사용되는 값, SQL, DB연결 과정, 코드 오타 등 
+			//   문제가 발생했을 때 나타난 상태 코드
+			
+			String errorMessage = "회원 가입 중 문제가 발생했습니다.";
+			
+			req.setAttribute("errorMessage", errorMessage); // 에러 메시지
+			req.setAttribute("e", e); // 예외관련 정보를 담고있는 객체
+			
+			// error.jsp로 요청 위임하여 응답화면 출력하기
+			String path = "/WEB-INF/views/common/error.jsp";
+			
+			RequestDispatcher dispatcher = req.getRequestDispatcher(path);
+			
+			dispatcher.forward(req, resp);
+			
 		}
 		
-		
-		
 	}
+	
+	
+	
+	
+	// 크로스사이트 스크립트 방지 처리 메소드
+	private String replaceParameter(String param) {
+		
+		// 크로스사이트 스크립트 공격이 가능한 이유
+		// ->   <, >, &, \  같은 HTML에서 태그, 특수문자에 사용되는 코드가
+		//   문자가 아닌  HTML 코드로 해석되서 문제가 된다. 
+		
+		// -> HTML 코드로 해석 되었을 때 문제가 발생할만한 특수 문자를 
+		//   문자 자체로 인식되게 변경
+		
+		String result = param;
+		
+		if(result != null) {
+			result = result.replaceAll("&", "&amp;");
+			result = result.replaceAll("<", "&lt;");
+			result = result.replaceAll(">", "&gt;");
+			result = result.replaceAll("\"", "&quot;");
+		}
+		
+		return result;
+	}
+	
+	
+	
 	
 	
 	

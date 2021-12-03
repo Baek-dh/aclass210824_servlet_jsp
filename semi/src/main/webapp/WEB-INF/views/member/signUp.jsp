@@ -7,7 +7,6 @@
 <jsp:include page="../common/header.jsp"/>
 
 
-
 	<div class="container-xl">
 
 		<div class="py-5 text-center">

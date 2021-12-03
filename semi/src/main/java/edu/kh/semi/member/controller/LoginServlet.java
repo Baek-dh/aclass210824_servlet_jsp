@@ -2,6 +2,7 @@ package edu.kh.semi.member.controller;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -189,6 +190,16 @@ public class LoginServlet extends HttpServlet{
 			
 		}catch (Exception e) {
 			e.printStackTrace();
+			
+			String errorMessage = "로그인 중 문제가 발생했습니다.";
+			
+			req.setAttribute("errorMessage", errorMessage);
+			req.setAttribute("e", e);
+			
+			String path = "/WEB-INF/views/common/error.jsp";
+			RequestDispatcher dispatcher = req.getRequestDispatcher(path);
+			dispatcher.forward(req, resp);
+			
 		}
 	
 	}
