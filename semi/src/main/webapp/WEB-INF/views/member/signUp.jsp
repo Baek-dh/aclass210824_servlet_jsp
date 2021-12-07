@@ -41,7 +41,7 @@
 	
 						<!-- 아이디 유효성 검사 결과 출력 -->
 						<div class="col-md-6 offset-md-3">
-							<span id="checkId" class="validity-msg">사용가능한 아이디 입니다.</span>
+							<span id="checkId" class="validity-msg"></span>
 						</div>
 					</div>
 
@@ -128,7 +128,7 @@
 					<!-- 이메일 -->
 					<div class="row mb-3 form-row">
 						<div class="col-md-3">
-							<label for="email"> Email</label>
+							<label for="email"><span class="required"></span> Email</label>
 						</div>
 						<div class="col-md-6">
 							<input type="email" class="form-control" id="email" name="email" autocomplete="off" required>
@@ -200,6 +200,13 @@
 		    $("#postcodify_search_button").postcodifyPopUp();
 		});
 	</script>
+	
+	
+	<script src="${contextPath}/resources/js/member.js"></script>
+	
+	
+	
+	
 	
 </body>
 </html>

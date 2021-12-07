@@ -63,6 +63,37 @@ public class MemberService {
 		// 5) 결과 반환
 		return result;
 	}
+
+
+
+	/** 아이디 중복 확인
+	 * @param inputId
+	 * @return result (1 중복, 0 사용 가능)
+	 * @throws Exception
+	 */
+	public int idDupCheck(String inputId) throws Exception{
+		Connection conn = getConnection(); // DBCP에서 커넥션 얻어오기
+		
+		int result = dao.idDupCheck(inputId, conn);
+		
+		close(conn);
+		
+		return result;
+	}
+
+
+
+	/** 이메일 중복 확인
+	 * @param inputEmail
+	 * @return result(1 중복, 0 사용 가능)
+	 * @throws Exception
+	 */
+	public int emailDupCheck(String inputEmail) throws Exception {
+		Connection conn = getConnection();
+		int result = dao.emailDupCheck(inputEmail, conn);
+		close(conn);
+		return result;
+	}
 	
 	
 	

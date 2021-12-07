@@ -16,9 +16,23 @@
 	<entry key="signUp">
 		INSERT INTO MEMBER
 		VALUES(SEQ_MEMBER_NO.NEXTVAL, ?, ?, ?, ?, ?, ?, DEFAULT, DEFAULT, DEFAULT)
-
 	</entry>
 	
+	
+	<!-- 아이디 중복 확인 -->
+	<entry key="idDupCheck">
+		SELECT COUNT(*) FROM MEMBER
+		WHERE STATUS_CD != 101
+		AND MEMBER_ID = ?
+	</entry>
+	
+	
+	<!-- 이메일 중복 확인 -->
+	<entry key="emailDupCheck">
+		SELECT COUNT(*) FROM MEMBER
+		WHERE STATUS_CD != 101
+		AND MEMBER_EMAIL = ?  
+	</entry>
 	
 	
 	

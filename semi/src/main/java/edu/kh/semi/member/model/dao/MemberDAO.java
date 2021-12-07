@@ -134,6 +134,69 @@ public class MemberDAO {
 		// 7) 결과 반환
 		return result;
 	}
+
+
+	/** 아이디 중복 확인
+	 * @param inputId
+	 * @param conn
+	 * @return result (1 중복, 0 사용 가능)
+	 * @throws Exception
+	 */
+	public int idDupCheck(String inputId, Connection conn) throws Exception{
+		
+		int result = 0;
+		
+		try {
+			String sql = prop.getProperty("idDupCheck");
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, inputId);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				result = rs.getInt(1);
+			}
+			
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+	/** 이메일 중복 체크
+	 * @param inputEmail
+	 * @param conn
+	 * @return result(1 중복, 0 사용 가능)
+	 * @throws Exception
+	 */
+	public int emailDupCheck(String inputEmail, Connection conn) throws Exception{
+		
+		int result = 0;
+		
+		try {
+			String sql = prop.getProperty("emailDupCheck");
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, inputEmail);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				result = rs.getInt(1);
+			}
+			
+			
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return result;
+	}
 	
 	
 	
