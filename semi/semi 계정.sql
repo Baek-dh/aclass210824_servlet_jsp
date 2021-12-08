@@ -208,3 +208,28 @@ ALTER TABLE MEMBER MODIFY GRADE_CD DEFAULT 200;
 
 
 
+-- 아이디 중복 검사
+-- (탈퇴 회원 제외, 아이디가 일치하는 회원만 조회)
+SELECT COUNT(*) FROM MEMBER
+WHERE STATUS_CD != 101
+AND MEMBER_ID = 'user200'  ;
+
+-- 결과 1 == 중복 O
+-- 결과 0 == 중복 X
+
+
+-- 아이디로 회원 정보 검색(idSearch)
+SELECT MEMBER_NM, MEMBER_PHONE, MEMBER_EMAIL, MEMBER_ADDR
+FROM MEMBER
+WHERE MEMBER_ID = 'user01'
+AND STATUS_CD != 101
+AND GRADE_CD = 200
+;
+
+
+
+
+
+
+
+

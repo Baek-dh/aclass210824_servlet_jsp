@@ -26,9 +26,51 @@
 	
 	<section class="py-5">
 	  <div class="container">
-	    <h1>Section Heading</h1>
-	    <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-	    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, suscipit, rerum quos facilis repellat architecto commodi officia atque nemo facere eum non illo voluptatem quae delectus odit vel itaque amet.</p>
+	    <h1>아이디가 일치하는 회원정보 조회(AJAX)</h1>
+	    <p class="lead">
+	    	검색할 아이디 : <input type="text" id="searchId">
+	    	<button type="button" id="idSearchBtn">아이디 검색</button>
+	    </p>
+	    
+	    <table>
+	    	<tbody id="idSearchResult">
+				<!-- 
+				<tr>
+					<td> user01이라는 회원이 존재하지 않습니다.</td>
+				</tr>
+				 -->
+				
+				<tr>
+					<th>아이디</th>
+					<td>user01</td>
+				</tr>
+				
+				<tr>
+					<th>이름</th>
+					<td>유저일</td>
+				</tr>
+				
+				<tr>
+					<th>전화번호</th>
+					<td>010-1234-1234</td>
+				</tr>
+				
+				<tr>
+					<th>이메일</th>
+					<td>user01@kh.or.kr</td>
+				</tr>
+				
+				<tr>
+					<th>주소</th>
+					<td>서울시 중구 ....</td>
+				</tr>
+				
+				
+				
+	    	</tbody>
+	    </table>
+	    
+	  
 	  </div>
 	</section>
 	

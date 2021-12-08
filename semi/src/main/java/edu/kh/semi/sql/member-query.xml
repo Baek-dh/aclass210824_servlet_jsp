@@ -35,6 +35,14 @@
 	</entry>
 	
 	
+	<!-- 아이디로 회원 정보 검색 -->
+	<entry key="idSearch">
+		SELECT MEMBER_NM, MEMBER_PHONE, MEMBER_EMAIL, MEMBER_ADDR
+		FROM MEMBER
+		WHERE MEMBER_ID = ?
+		AND STATUS_CD != 101
+		AND GRADE_CD = 200
+	</entry>
 	
 	
 	

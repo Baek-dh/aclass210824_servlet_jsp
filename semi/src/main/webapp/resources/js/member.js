@@ -228,7 +228,12 @@ document.getElementById("email").addEventListener("input", (e) => {
 
             },
 
-            complete : function(){
+            complete : function(){ 
+                // success , error가 수행된 후
+                // ajax 요청/응답 처리가 완료 되었을 때 수행
+                // (마지막에 무조건 수행)
+                
+                console.log("complete 수행");
 
             }
         });

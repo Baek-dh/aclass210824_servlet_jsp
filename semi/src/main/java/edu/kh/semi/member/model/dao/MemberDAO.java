@@ -197,6 +197,47 @@ public class MemberDAO {
 		
 		return result;
 	}
+
+
+	 
+	/** 아이디로 회원 정보 검색
+	 * @param inputId
+	 * @param conn
+	 * @return member
+	 * @throws Exception
+	 */
+	public Member idSearch(String inputId, Connection conn) throws Exception {
+		
+		Member member = null;
+		
+		try {
+			String sql = prop.getProperty("idSearch");
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, inputId);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				member = new Member();
+				
+				// 매개변수로 전달 받은 ID를 member에 세팅
+				member.setMemberId(inputId);
+				
+				member.setMemberName( rs.getString(1) );
+				member.setMemberPhone( rs.getString(2) );
+				member.setMemberEmail( rs.getString(3) );
+				member.setMemberAddress( rs.getString(4) );
+				
+			}
+			
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return member;
+	}
 	
 	
 	
