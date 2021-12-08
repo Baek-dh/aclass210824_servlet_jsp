@@ -45,7 +45,14 @@
 	</entry>
 	
 	
-	
+	<!-- 회원 정보 수정 -->
+	<entry key="update">
+		UPDATE MEMBER SET 
+		MEMBER_EMAIL= ? , 
+		MEMBER_PHONE= ? ,  
+		MEMBER_ADDR= ? 
+		WHERE MEMBER_NO=?
+	</entry>
 	
 
 
