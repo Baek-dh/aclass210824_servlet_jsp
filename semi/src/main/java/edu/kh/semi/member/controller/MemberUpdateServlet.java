@@ -60,7 +60,6 @@ public class MemberUpdateServlet extends HttpServlet {
 			int result = new MemberService().update(member);
 			
 			
-			
 			if(result > 0) { // 성공
 				session.setAttribute("message", "회원 정보가 수정 되었습니다.");
 				

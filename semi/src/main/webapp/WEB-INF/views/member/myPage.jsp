@@ -202,9 +202,10 @@
 			
 			
 		});
-		
 	</script>
 	
+	
+	<script src="${contextPath}/resources/js/memberUpdate.js"></script>
 	
 	
 	

@@ -31,7 +31,7 @@ import edu.kh.semi.wrapper.EncryptWrapper;
 //				필터에 이름을 부여하여 필터링 순서를 지정할 수 있게하는 어노테이션
 
 @WebFilter(filterName = "encryptFilter", 
-			urlPatterns = {"/member/login" , "/member/signup"   })
+			urlPatterns = {"/member/login" , "/member/signup", "/member/updatePw" , "/member/secession"   })
 public class EncryptFilter implements Filter {
 
 	public void init(FilterConfig fConfig) throws ServletException {

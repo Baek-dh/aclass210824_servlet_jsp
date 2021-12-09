@@ -4,6 +4,7 @@ import static edu.kh.semi.common.JDBCTemplate.*;
 // -> 해당 클래스 내 static 요소 호출 시 클래스명 생략
 
 import java.sql.Connection;
+import java.util.Map;
 
 import edu.kh.semi.member.model.dao.MemberDAO;
 import edu.kh.semi.member.model.vo.Member;
@@ -121,18 +122,77 @@ public class MemberService {
 	 */
 	public int update(Member member) throws Exception{
 		
+		// DBCP에서 커넥션 얻어오기
 		Connection conn = getConnection();
 		
+		// DAO 호출 후 결과 반환 받기
 		int result = dao.update(conn, member);
 		
+		// 트랜잭션 제어
 		if(result > 0)	commit(conn);
 		else			rollback(conn);
+		
+		// 커넥션 반환(DBCP로 돌아감)
+		close(conn);
+		
+		// 결과 반환
+		return result;
+	}
+
+
+
+	/** 비밀번호 변경
+	 * @param currentPw
+	 * @param newPw1
+	 * @param memberNo
+	 * @return result(1 성공, 0 현재 비밀번호 불일치)
+	 * @throws Exception
+	 */
+	public int updatePw(String currentPw, String newPw1, int memberNo) throws Exception{
+		
+		Connection conn = getConnection();
+		
+		int result = dao.updatePw(currentPw, newPw1, memberNo, conn);
+		
+		// 트랜잭션 제어
+		if(result > 0) commit(conn);
+		else		   rollback(conn);
 		
 		close(conn);
 		
 		return result;
 	}
 
+
+
+	/** 회원 탈퇴
+	 * @param map
+	 * @return result (1 성공, 0 비밀번호 불일치)
+	 * @throws Exception
+	 */
+	public int secession(Map<String, String> map) throws Exception{
+		
+		// DBCP 에서 커넥션 얻어오기
+		Connection conn = getConnection();
+		
+		// DAO 수행 후 결과 반환 받기
+		int result = dao.secession(map, conn);
+		
+		// 트랜잭션 제어 처리
+		if(result > 0)	commit(conn);
+		else			rollback(conn);
+		
+		// 커넥션 반환
+		close(conn);
+		
+		// 결과 반환
+		return result;
+	}
+
+	
+	
+	
+	
 	
 	
 	

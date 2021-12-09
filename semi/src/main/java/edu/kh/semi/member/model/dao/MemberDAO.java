@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Map;
 import java.util.Properties;
 
 import edu.kh.semi.member.model.vo.Member;
@@ -247,19 +248,54 @@ public class MemberDAO {
 	 * @throws Exception
 	 */
 	public int update(Connection conn, Member member) throws Exception{
-		int result = 0;
 		
-		String sql = prop.getProperty("update");
-		
-		System.out.println(member.getMemberPhone().length());
+		int result = 0; // 결과 저장용 변수 선언
 		
 		try {
+			
+			// SQL 얻어오기
+			String sql = prop.getProperty("update");
+			
+			// pstmt 얻어오고 SQL 적재
 			pstmt = conn.prepareStatement(sql);
 			
+			// 위치 홀더에 알맞은 값 세팅
 			pstmt.setString(1, member.getMemberEmail());
 			pstmt.setString(2, member.getMemberPhone());
 			pstmt.setString(3, member.getMemberAddress());
 			pstmt.setInt(4, member.getMemberNo());
+			
+			// SQL 수행
+			result = pstmt.executeUpdate();
+			
+		}finally {
+			close(pstmt); // 사용한 JDBC 객체 자원 반환
+		}
+		
+		// 결과 반환
+		return result;
+	}
+
+	
+
+	/** 비밀번호 변경
+	 * @param currentPw
+	 * @param newPw1
+	 * @param memberNo
+	 * @param conn
+	 * @return result
+	 * @throws Exception
+	 */
+	public int updatePw(String currentPw, String newPw1, int memberNo, Connection conn) throws Exception{
+		
+		int result = 0;
+		try {
+			String sql = prop.getProperty("updatePw");
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, newPw1);
+			pstmt.setString(2, currentPw);
+			pstmt.setInt(3, memberNo);
 			
 			result = pstmt.executeUpdate();
 			
@@ -267,6 +303,49 @@ public class MemberDAO {
 			close(pstmt);
 		}
 		
+		return result;
+	}
+
+
+	/** 회원 탈퇴
+	 * @param map
+	 * @param conn
+	 * @return result (1 성공, 0 비밀번호 불일치)
+	 * @throws Exception
+	 */
+	public int secession(Map<String, String> map, Connection conn) throws Exception{
+		
+		// 결과 반환용 변수 선언
+		int result = 0;
+	
+		try {
+			// SQL 얻어오기
+			String sql = prop.getProperty("secession");
+			
+			// pstmt 얻어오기 + SQL 적재
+			pstmt = conn.prepareStatement(sql);
+			
+			// 위치 홀더에 알맞은 값 세팅
+			//pstmt.setInt( 1,  Integer.parseInt( map.get("memberNo") ) );
+			
+			// -> 숫자만 작성된 문자열 같은 경우
+			//    DBMS에서 숫자로 인식할 수 있으므로 
+			//    꼭 int형 파싱을 할 필요가 없다.
+			
+			pstmt.setString(1, map.get("memberNo") );
+			pstmt.setString(2, map.get("currentPw") );
+			
+			
+			// SQL 수행 후 결과 반환 받기
+			result = pstmt.executeUpdate();
+			
+		}finally {
+			// 사용한 JDBC 객체 자원 반환
+			close(pstmt);
+			
+		}
+		
+		// 결과 반환
 		return result;
 	}
 	

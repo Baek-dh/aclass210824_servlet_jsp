@@ -54,6 +54,30 @@
 		WHERE MEMBER_NO=?
 	</entry>
 	
+	
+	<!-- 회원 번호 변경 -->
+	<entry key="updatePw">
+		UPDATE MEMBER SET
+		MEMBER_PW = ?
+		WHERE MEMBER_PW = ?
+		AND MEMBER_NO = ?
+	</entry>
+	
+	
+	<!-- 회원 탈퇴 -->
+	<entry key="secession">
+		UPDATE MEMBER SET
+		STATUS_CD = (SELECT STATUS_CD FROM MEMBER_STATUS WHERE STATUS_NM = '탈퇴')
+		WHERE MEMBER_NO = ?
+		AND MEMBER_PW = ?
+	</entry>
+	
+	
+	
+	
+	
+	
+	
 
 
 </properties>
