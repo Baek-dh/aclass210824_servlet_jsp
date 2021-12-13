@@ -9,6 +9,7 @@
 	    <h1>Servlet/JSP를 이용한<br>Semi Project</h1>
 	</div>
 	
+	${contextPath != null }
 	<!-- 내용 작성 부분 -->
 	<section class="py-5">
 	  <div class="container">

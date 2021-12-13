@@ -164,8 +164,8 @@ function memberUpdateValidate(){
             return false; // submit 이벤트 제거
 
         }
-
-
     }
-
 }
+
+
+

@@ -231,10 +231,119 @@ COMMIT;
 
 UPDATE MEMBER SET
 		STATUS_CD = (SELECT STATUS_CD FROM MEMBER_STATUS WHERE STATUS_NM = '탈퇴')
-		WHERE MEMBER_NO = ?
-		AND MEMBER_PW = ?;
+		WHERE MEMBER_NO = '1' ;
+		--AND MEMBER_PW = ?;
         
 ROLLBACK;
+
+
+
+
+---------------------------------------------------------------------------------------
+-- CATEGORY 샘플 데이터
+INSERT INTO CATEGORY VALUES(1, '잡담');
+INSERT INTO CATEGORY VALUES(2, '질문');
+INSERT INTO CATEGORY VALUES(3, '정보');
+
+SELECT * FROM CATEGORY;
+COMMIT;
+
+
+-- BOARD_STATUS 샘플 데이터 추가
+INSERT INTO BOARD_STATUS VALUES(300, '정상');
+INSERT INTO BOARD_STATUS VALUES(301, '블라인드');
+INSERT INTO BOARD_STATUS VALUES(302, '삭제');
+
+SELECT * FROM BOARD_STATUS;
+COMMIT;
+
+
+-- BOARD 샘플 데이터 추가 (500개)
+BEGIN
+    FOR I IN 1..500 LOOP
+        INSERT INTO BOARD
+        VALUES(SEQ_BOARD_NO.NEXTVAL,
+                SEQ_BOARD_NO.CURRVAL || '번째 게시글',
+                SEQ_BOARD_NO.CURRVAL || '번째 게시글 입니다.',
+                DEFAULT, DEFAULT, DEFAULT,
+                4, 300, FLOOR(DBMS_RANDOM.VALUE(1,4)));
+    END LOOP;
+END;
+/
+
+SELECT COUNT(*) FROM BOARD; -- 500개 삽입 확인
+COMMIT;
+
+
+-- 게시글 상태가 섞여 있는 게시글 100개 생성
+BEGIN
+    FOR I IN 1..100 LOOP
+        INSERT INTO BOARD
+        VALUES(SEQ_BOARD_NO.NEXTVAL,
+                SEQ_BOARD_NO.CURRVAL || '번째 게시글',
+                SEQ_BOARD_NO.CURRVAL || '번째 게시글 입니다.',
+                DEFAULT, DEFAULT, DEFAULT,
+                4, 300 +  FLOOR(DBMS_RANDOM.VALUE(0,3)) 
+                , FLOOR(DBMS_RANDOM.VALUE(1,4)) );
+    END LOOP;
+END;
+/
+
+COMMIT;
+
+SELECT * FROM BOARD
+ORDER BY BOARD_NO DESC;
+
+
+-- 게시글 목록 조회
+-- 글번호, 제목, 작성자, 조회수, 작성일, 카테고리, 상태명
+        -- CREATE_DT, 
+        -- 게시글 작성 시간으로 부터 1일이 지나지 않은 경우 -> 16:12 시간 작성
+        -- 게시글 작성 시간으로 부터 1일이 지난 경우        -> 2021-12-12 날짜 작성  
+       
+       
+SELECT BOARD_NO, BOARD_TITLE, MEMBER_NO, MEMBER_NM,READ_COUNT, 
+        CASE WHEN SYSDATE - CREATE_DT < 1
+             THEN TO_CHAR(  CREATE_DT, 'HH24:MI'  )  
+             ELSE TO_CHAR(  CREATE_DT, 'YYYY-MM-DD'  )  
+        END AS "CREATE_DT",
+       CATEGORY_CD, CATEGORY_NM,
+       BOARD_STATUS_CD, BOARD_STATUS_NM  
+FROM BOARD
+JOIN MEMBER USING(MEMBER_NO)
+JOIN CATEGORY USING(CATEGORY_CD)
+JOIN BOARD_STATUS USING(BOARD_STATUS_CD);
+
+
+-- 게시글 목록 조회용 VIEW 생성
+CREATE OR REPLACE VIEW BOARD_LIST AS
+SELECT BOARD_NO, BOARD_TITLE, MEMBER_NO, MEMBER_NM,READ_COUNT, 
+        CASE WHEN SYSDATE - CREATE_DT < 1
+             THEN TO_CHAR(  CREATE_DT, 'HH24:MI'  )  
+             ELSE TO_CHAR(  CREATE_DT, 'YYYY-MM-DD'  )  
+        END AS "CREATE_DT",
+       CATEGORY_CD, CATEGORY_NM,
+       BOARD_STATUS_CD, BOARD_STATUS_NM  
+FROM BOARD
+JOIN MEMBER USING(MEMBER_NO)
+JOIN CATEGORY USING(CATEGORY_CD)
+JOIN BOARD_STATUS USING(BOARD_STATUS_CD);
+
+
+-- 게시글 목록 조회 시 필요한 조건, 정렬
+-- 정상,블라인드만 조회
+
+
+SELECT * FROM
+(SELECT ROWNUM RNUM, A.* 
+    FROM (SELECT * FROM BOARD_LIST
+        WHERE BOARD_STATUS_CD != 302
+        ORDER BY BOARD_NO DESC) A)
+WHERE RNUM BETWEEN 21 AND 30;
+
+--> ROWNUM은 행의 번호를 1부터 세어주는 가상 컬럼 (반드시 1부터 시작)
+
+
 
 
 
