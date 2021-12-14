@@ -41,7 +41,7 @@
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav ml-auto">
 
-					<li class="nav-item"><a class="nav-link" href="#">Board</a></li>
+					<li class="nav-item"><a class="nav-link" href="${contextPath}/board/list">Board</a></li>
 
 					<!-- 로그인 버튼 -->
 					<%-- Modal 동작 버튼은 data-toggle="modal" 속성과 href 속성값으로 보여질 Modal 영역 id를 작성하면된다. --%>

@@ -2,6 +2,12 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 
+	<!-- 전체 게시글 수 조회 -->
+	<entry key="getListCount">
+		SELECT COUNT(*) FROM BOARD
+		WHERE BOARD_STATUS_CD != 302
+	</entry>
+
 
 
 	<!-- 게시글 목록 조회 -->

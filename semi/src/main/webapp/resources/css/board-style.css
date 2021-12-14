@@ -1,0 +1,50 @@
+/* 게시글 목록 내부 td 태그 */
+#list-table td {
+	height : 50px;
+	padding: 0; /* td 태그 padding을 없앰 */
+	vertical-align: middle; /* td태그 내부 세로 가운데 정렬*/
+	/* vertical-align : inline, inline-block 요소에만 적용 가능(td는 inline-block)*/
+}
+
+/* 컬럼명 가운데 정렬 */
+#list-table th {
+	text-align: center;
+}
+
+/* 게시글 제목을 제외한 나머지 가운데 정렬 */
+#list-table td:not(:nth-of-type(3)) {
+	text-align: center;
+}
+
+/* 게시글 목록의 높이가 최소 540px은 유지하도록 설정 */
+.list-wrapper {
+	min-height: 540px;
+}
+
+/* 글 제목 영역의 너비를 table의 50% 넓게 설정*/
+#list-table td:nth-child(3) {
+	width: 50%;
+}
+
+/* 제목 a태그 색 변경 */
+#list-table td:nth-child(3)>a {
+	color: black;
+}
+
+/* 게시글 제목에 영역 이미지 설정 */
+.boardTitle img {
+	width: 70px;
+	padding: 10px
+}
+
+.pagination {
+	justify-content: center;
+}
+
+#searchForm {
+	position: relative;
+}
+
+#searchForm>* {
+	top: 0;
+}
