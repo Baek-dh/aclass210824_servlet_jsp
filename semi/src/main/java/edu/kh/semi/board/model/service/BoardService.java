@@ -7,6 +7,7 @@ import java.util.List;
 
 import edu.kh.semi.board.model.dao.BoardDAO;
 import edu.kh.semi.board.model.vo.Board;
+import edu.kh.semi.board.model.vo.Category;
 import edu.kh.semi.board.model.vo.Pagination;
 
 public class BoardService {
@@ -51,6 +52,63 @@ public class BoardService {
 		
 		return boardList;
 	}
+
+
+
+	/** 게시글 상세 조회
+	 * @param boardNo
+	 * @param memberNo 
+	 * @return board(없으면 null)
+	 * @throws Exception
+	 */
+	public Board selectBoard(int boardNo, int memberNo) throws Exception{
+		
+		Connection conn = getConnection();
+
+		Board board = dao.selectBoard(boardNo, conn);
+		
+		// 조회된 게시글이 있고, 해당 게시글의 작성자와 로그인된 회원이 같지 않으면
+		// 조회수 증가
+		if(board != null && board.getMemberNo() != memberNo ) {
+			
+			int result = dao.increaseReadCount(boardNo, conn);
+			
+			if(result > 0) {	
+				commit(conn);
+				
+				// 먼저 조회되었던 게시글 정보에서 조회수를 1증가
+				board.setReadCount( board.getReadCount() + 1  );
+			}
+			
+			else			rollback(conn);
+			
+		}
+		
+		close(conn);
+		
+		return board;
+		
+		
+	}
+
+
+
+	/** 카테고리 조회
+	 * @return category
+	 * @throws Exception
+	 */
+	public List<Category> selectCategory() throws Exception{
+		Connection conn = getConnection();
+		
+		List<Category> category = dao.selectCategory(conn);
+		
+		close(conn);
+		
+		return category;
+	}
+	
+	
+	
 	
 	
 	

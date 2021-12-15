@@ -22,6 +22,43 @@
 	</entry>
 	
 	
+	<!-- 게시글 상세 조회 -->
+	<entry key="selectBoard">
+		SELECT BOARD_NO, BOARD_TITLE, BOARD_CONTENT,
+		    MEMBER_NO, MEMBER_NM,
+		    TO_CHAR(CREATE_DT, 'YYYY"년" MM"월" DD"일" HH24"시" MI"분" SS"초"' ) CREATE_DT,
+		    TO_CHAR(MODIFY_DT, 'YYYY"년" MM"월" DD"일" HH24"시" MI"분" SS"초"' ) MODIFY_DT,
+		    CATEGORY_CD, CATEGORY_NM,
+		    READ_COUNT, BOARD_STATUS_NM
+		FROM BOARD
+		JOIN MEMBER USING(MEMBER_NO)
+		JOIN CATEGORY USING(CATEGORY_CD)
+		JOIN BOARD_STATUS USING(BOARD_STATUS_CD)
+		WHERE BOARD_NO = ?
+		AND BOARD_STATUS_CD != 302
+	</entry>
+	
+	
+	
+	<!-- 조회수 증가 -->
+	<entry key="increaseReadCount">
+		UPDATE BOARD SET
+		READ_COUNT = READ_COUNT + 1
+		WHERE BOARD_NO = ?
+	</entry>
+	
+	
+	
+	<!-- 카테고리 조회 -->
+	<entry key="selectCategory">
+		SELECT * FROM CATEGORY
+	</entry>
+	
+	
+	
+	
+	
+	
 	
 
 

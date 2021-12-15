@@ -48,3 +48,87 @@
 #searchForm>* {
 	top: 0;
 }
+
+
+#board-area {
+	min-height: 700px;
+	margin-bottom: 100px;
+}
+
+#board-content {
+	padding-bottom: 150px;
+}
+
+.boardImgArea {
+	height: 300px;
+}
+
+.replyWrite>table {
+	width: 90%;
+	align: center;
+}
+
+#replyContentArea {
+	width: 90%;
+}
+
+#replyContentArea>textarea {
+	resize: none;
+	width: 100%;
+}
+
+#replyBtnArea {
+	width: 100px;
+	text-align: center;
+}
+
+.rWriter {
+	margin-right: 30px;
+}
+
+.rDate {
+	font-size: 0.7em;
+	color: gray;
+}
+
+#replyListArea {
+	list-style-type: none;
+}
+
+.board-dateArea {
+	font-size: 14px;
+}
+
+.boardImg {
+	cursor: pointer;
+	width: 200px;
+	height: 200px;
+	border: 1px solid #ced4da;
+	position: relative;
+}
+
+.thubnail {
+	width: 300px;
+	height: 300px;
+}
+
+.boardImg>img {
+	max-width: 100%;
+	max-height: 100%;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+}
+
+.insert-label {
+	display: inline-block;
+	width: 80px;
+	line-height: 40px
+}
+
+#fileArea {
+	display: none;
+}

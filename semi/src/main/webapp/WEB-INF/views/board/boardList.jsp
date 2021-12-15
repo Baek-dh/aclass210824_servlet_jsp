@@ -47,7 +47,8 @@
 									
 									<%-- 글 제목 --%>
 									<td class="boardTitle">
-										<a href="#">
+										<a href="${contextPath}/board/view?no=${board.boardNo}&cp=${pagination.currentPage}">
+										<!-- <a href="view"> -->
 										
 											<c:choose>
 												<c:when test="${board.boardStatusName eq '블라인드' }">                                                          
@@ -84,7 +85,7 @@
 
 		<%-- 로그인이 되어있는 경우에만 글쓰기 버튼 노출 --%>
 		<c:if test="${!empty loginMember }">
-			<button type="button" class="btn btn-primary float-right" id="insertBtn" onclick="location.href = '${contextPath}/board/insertForm';">글쓰기</button>
+			<button type="button" class="btn btn-primary float-right" id="insertBtn" onclick="location.href = '${contextPath}/board/insert';">글쓰기</button>
 		</c:if>
 
 
