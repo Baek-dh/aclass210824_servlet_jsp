@@ -216,6 +216,92 @@ public class BoardService {
 		
 		return result;
 	}
+
+
+
+	/** 게시글 수정 화면 전환
+	 * @param boardNo
+	 * @return board
+	 * @throws Exception
+	 */
+	public Board updateView(int boardNo) throws Exception{
+		
+		Connection conn = getConnection();
+		
+		Board board = dao.selectBoard(boardNo, conn);
+						// -> 상세 조회 때 만들어둔 게시글 조회
+		
+		// 게시글에 해당되는 이미지 정보 조회
+		List<BoardImage> imgList = dao.selectBoardImageList(boardNo, conn);
+		
+		// 조회된 이미지 목록을 board에 추가
+		board.setImgList(imgList);
+		
+		
+		// + 현재 DB에는 줄 바꿈을 <br> 형태로 저장하고 있음.
+		//  -> <br>을 \r\n 원래 형태로 변환
+		board.setBoardContent( board.getBoardContent().replaceAll("<br>", "\r\n")  );
+		
+		close(conn);
+		
+		return board;
+	}
+
+
+
+	/** 게시글 수정 
+	 * @param board
+	 * @param imgList
+	 * @return result
+	 * @throws Exception
+	 */
+	public int updateBoard(Board board, List<BoardImage> imgList) throws Exception{
+		
+		Connection conn = getConnection();
+		
+		// 1. XSS 방지 처리, 개행 문자 변경
+		String boardTitle = XSS.replaceParameter(board.getBoardTitle());
+		String boardContent = XSS.replaceParameter(board.getBoardContent());
+		
+		boardContent = boardContent.replaceAll("(\r\n|\r|\n|\n\r)", "<br>");
+		
+		board.setBoardTitle(boardTitle);
+		board.setBoardContent(boardContent);
+		
+		
+		// 2. 게시글 부분 수정
+		int result = dao.updateBoard(board, conn);
+		
+		if(result > 0) { // 게시글 부분 수정 성공
+			
+			// 3. 이미지 부분 수정
+			// -> 반복문을 이용하여 새로 업로드된 이미지 정보를
+			//    기존 BOARD_IMG 테이블에 저장된 행에 UPDATE
+			//    -> 만약 기존 데이터가 없으면 INSERT
+			
+			for(BoardImage img : imgList) {
+				
+				result = dao.updateBoardImage(img, conn);
+				// - 기존 데이터를 수정 성공        -> result == 1
+				// - 기존 데이터가 없어서 수정 실패 -> result == 0
+				
+				if(result == 0) {
+					result = dao.insertBoardImage(img, conn);
+				}
+			}// end for
+			
+			if(result > 0) 	commit(conn);
+			else			rollback(conn);
+			
+			
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
 	
 	
 	

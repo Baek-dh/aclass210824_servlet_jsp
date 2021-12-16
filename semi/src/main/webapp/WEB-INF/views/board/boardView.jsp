@@ -60,7 +60,6 @@
 							<c:when test="${img.imgLevel == 3 }">
 								<c:set var="img3" value="${contextPath}${img.imgPath}${img.imgName}"/>
 							</c:when>
-
 						
 						
 						</c:choose>
@@ -117,12 +116,23 @@
 				<%-- 댓글 영역 include 예정 --%>
 			</div>
 
-
-
 		</div>
 	</div>
+	
+	
+	<form action="#" method="POST" name="requestForm">
+		<input type="hidden" name="cp" value="${param.cp }">
+		<input type="hidden" name="no" value="${param.no }">
+	</form>
+	
+	
 	<jsp:include page="../common/footer.jsp"></jsp:include>
 	
+
+	<script src="${contextPath}/resources/js/board.js"></script>
 	
+	
+	
+
 </body>
 </html>

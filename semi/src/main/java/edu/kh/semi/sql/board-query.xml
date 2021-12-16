@@ -83,6 +83,29 @@
 	</entry>
 	
 	
+	<!-- 게시글 수정 -->
+	<entry key="updateBoard">
+		UPDATE BOARD SET
+		BOARD_TITLE = ?,
+		BOARD_CONTENT = ?,
+		CATEGORY_CD = ?,
+		MODIFY_DT = SYSDATE
+		WHERE BOARD_NO = ?
+	</entry>
+	
+	<!-- 게시글 이미지 수정 -->
+	<entry key="updateBoardImage">
+		UPDATE BOARD_IMG SET
+		IMG_NM = ?,
+		IMG_ORIGINAL = ?
+		WHERE IMG_LEVEL = ?
+		AND BOARD_NO = ?
+	</entry>
+	
+	
+	
+	
+	
 	
 
 

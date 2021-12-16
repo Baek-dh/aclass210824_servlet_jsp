@@ -365,6 +365,70 @@ public class BoardDAO {
 		
 		return imgList;
 	}
+
+
+
+	/** 게시글 수정
+	 * @param board
+	 * @param conn
+	 * @return result
+	 * @throws Exception
+	 */
+	public int updateBoard(Board board, Connection conn) throws Exception {
+
+		int result = 0;
+		
+		try {
+			String sql = prop.getProperty("updateBoard");
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, board.getBoardTitle());
+			pstmt.setString(2, board.getBoardContent());
+			pstmt.setInt(3, board.getCategoryCode());
+			pstmt.setInt(4, board.getBoardNo());
+			
+			result = pstmt.executeUpdate();
+			
+			
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+
+
+	/** 게시글 이미지 수정
+	 * @param img
+	 * @param conn
+	 * @return result
+	 * @throws Exception
+	 */
+	public int updateBoardImage(BoardImage img, Connection conn) throws Exception{
+		
+		int result = 0;
+		
+		try {
+			String sql = prop.getProperty("updateBoardImage");
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, img.getImgName());
+			pstmt.setString(2, img.getImgOriginal());
+			pstmt.setInt(3, img.getImgLevel());
+			pstmt.setInt(4, img.getBoardNo());
+			
+			result = pstmt.executeUpdate();
+			
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 	
 	
 	
