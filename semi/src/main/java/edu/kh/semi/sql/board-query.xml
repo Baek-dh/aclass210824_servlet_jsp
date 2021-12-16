@@ -55,8 +55,32 @@
 	</entry>
 	
 	
+	<!-- 다음 게시글 번호 조회  -->
+	<entry key="nextBoardNo">
+		SELECT SEQ_BOARD_NO.NEXTVAL FROM DUAL
+	</entry>
 	
 	
+	<!-- 게시글 삽입 -->
+	<entry key="insertBoard">
+		INSERT INTO BOARD VALUES
+		(?, ?, ?, DEFAULT, DEFAULT, DEFAULT, ?, DEFAULT, ?)
+	</entry>
+
+
+	<!-- 게시글 이미지 정보 삽입 -->
+	<entry key="insertBoardImage">
+		INSERT INTO BOARD_IMG
+		VALUES(SEQ_IMG_NO.NEXTVAL, ?, ?, ?, ?, ?)
+	</entry>
+	
+	
+	<!-- 특정 게시글 이미지 목록 조회 -->
+	<entry key="selectBoardImageList">
+		SELECT * FROM BOARD_IMG
+		WHERE BOARD_NO = ?
+		ORDER BY IMG_LEVEL
+	</entry>
 	
 	
 	

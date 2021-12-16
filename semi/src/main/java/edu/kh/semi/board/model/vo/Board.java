@@ -1,5 +1,7 @@
 package edu.kh.semi.board.model.vo;
 
+import java.util.List;
+
 public class Board {
 
 	private int boardNo;	
@@ -17,6 +19,9 @@ public class Board {
 	private String memberName;
 	private String categoryName;
 	private String boardStatusName;
+	
+	// 해당 게시글 이미지 목록을 저장할 필드
+	private List<BoardImage> imgList;
 	
 	
 	public Board() {	}
@@ -143,14 +148,27 @@ public class Board {
 	}
 
 
+	public List<BoardImage> getImgList() {
+		return imgList;
+	}
+
+
+	public void setImgList(List<BoardImage> imgList) {
+		this.imgList = imgList;
+	}
+
+
 	@Override
 	public String toString() {
 		return "Board [boardNo=" + boardNo + ", boardTitle=" + boardTitle + ", boardContent=" + boardContent
 				+ ", createDate=" + createDate + ", modifyDate=" + modifyDate + ", readCount=" + readCount
 				+ ", memberNo=" + memberNo + ", boardStatusCode=" + boardStatusCode + ", categoryCode=" + categoryCode
 				+ ", memberName=" + memberName + ", categoryName=" + categoryName + ", boardStatusName="
-				+ boardStatusName + "]";
+				+ boardStatusName + ", imgList=" + imgList + "]";
 	}
+
+
+	
 	
 	
 	

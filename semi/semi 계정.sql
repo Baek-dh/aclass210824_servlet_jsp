@@ -404,6 +404,12 @@ CREATE SEQUENCE SEQ_IMG_NO;
 
 
 
+-- 다음 게시글 번호 조회
+SELECT SEQ_BOARD_NO.NEXTVAL FROM DUAL  ;
+
+
+
+
 
 
 

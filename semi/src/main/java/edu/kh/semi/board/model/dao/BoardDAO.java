@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Properties;
 
 import edu.kh.semi.board.model.vo.Board;
+import edu.kh.semi.board.model.vo.BoardImage;
 import edu.kh.semi.board.model.vo.Category;
 import edu.kh.semi.board.model.vo.Pagination;
 
@@ -225,6 +226,144 @@ public class BoardDAO {
 		}
 		
 		return category;
+	}
+
+
+
+	/** 다음 게시글 번호 조회
+	 * @param conn
+	 * @return boardNo
+	 * @throws Exception
+	 */
+	public int nextBoardNo(Connection conn) throws Exception{
+		
+		int boardNo = 0;
+		
+		try {
+			String sql = prop.getProperty("nextBoardNo");
+		
+			pstmt = conn.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				boardNo = rs.getInt(1);
+			}
+			
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return boardNo;
+	}
+
+
+
+	/** 게시글 삽입
+	 * @param board
+	 * @param conn 
+	 * @return result
+	 * @throws Exception
+	 */
+	public int insertBoard(Board board, Connection conn) throws Exception{
+
+		int result = 0;
+		
+		try {
+			String sql = prop.getProperty("insertBoard");
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, board.getBoardNo());
+			pstmt.setString(2, board.getBoardTitle());
+			pstmt.setString(3, board.getBoardContent());
+			pstmt.setInt(4, board.getMemberNo());
+			pstmt.setInt(5, board.getCategoryCode());
+			
+			result = pstmt.executeUpdate();
+			
+			
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+
+	/** 게시글 이미지 정보 삽입
+	 * @param img
+	 * @param conn
+	 * @return result
+	 * @throws Exception
+	 */
+	public int insertBoardImage(BoardImage img, Connection conn) throws Exception{
+		
+		int result = 0;
+		
+		try {
+			String sql = prop.getProperty("insertBoardImage");
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, img.getImgPath());
+			pstmt.setString(2, img.getImgName());
+			pstmt.setString(3, img.getImgOriginal());
+			pstmt.setInt(4, img.getImgLevel());
+			pstmt.setInt(5, img.getBoardNo());
+			
+			result = pstmt.executeUpdate();
+			
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+
+
+	/** 특정 게시글 이미지 목록 조회
+	 * @param boardNo
+	 * @param conn
+	 * @return imgList
+	 * @throws Exception
+	 */
+	public List<BoardImage> selectBoardImageList(int boardNo, Connection conn) throws Exception{
+		List<BoardImage> imgList = new ArrayList<BoardImage>();
+		
+		try{
+			String sql = prop.getProperty("selectBoardImageList");
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, boardNo);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				BoardImage img = new BoardImage();
+				
+				img.setImgNo(rs.getInt(1));
+				img.setImgPath(rs.getString(2));
+				img.setImgName(rs.getString(3));
+				img.setImgOriginal(rs.getString(4));
+				img.setImgLevel(rs.getInt(5));
+				img.setBoardNo(boardNo);
+				
+				// img를 imgList에 추가
+				imgList.add(img);
+			}
+			
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		
+		return imgList;
 	}
 	
 	

@@ -1,6 +1,7 @@
 package edu.kh.semi.board.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
@@ -16,6 +17,7 @@ import com.oreilly.servlet.MultipartRequest;
 
 import edu.kh.semi.board.model.service.BoardService;
 import edu.kh.semi.board.model.vo.Board;
+import edu.kh.semi.board.model.vo.BoardImage;
 import edu.kh.semi.board.model.vo.Category;
 import edu.kh.semi.board.model.vo.Pagination;
 import edu.kh.semi.common.MyRenamePolicy;
@@ -239,6 +241,10 @@ public class BoardController extends HttpServlet{
 					// -> 폼에서 전달된 모든 input type="file" 요소의 name 속성을 반환
 					//   -> 파일이 업로드되지 않아도 모든 요소를 얻어옴!
 					
+					
+					// 업로된 이미지 정보를 담을 List 생성
+					List<BoardImage> imgList = new ArrayList<BoardImage>();
+					
 					while(files.hasMoreElements()) {
 						// 다음 요소(name)가 있으면 true
 						
@@ -253,17 +259,46 @@ public class BoardController extends HttpServlet{
 						// 현재 요소에 업로드된 파일이 있을 경우
 						if(mReq.getFilesystemName(name) != null) {
 							
+							BoardImage temp = new BoardImage();
 							
-						}
+							temp.setImgName(mReq.getFilesystemName(name));
+							temp.setImgOriginal(mReq.getOriginalFileName(name));
+							temp.setImgPath(filePath);
+							
+							// name(img0~img3)에서 숫자를 제외한 "img" 문자열을 제거
+							temp.setImgLevel(  Integer.parseInt( name.replace("img", "")  ) );
+							
+							
+							// imgList에 추가
+							imgList.add(temp);
+						
+						} // end if
+						
+					} // end while
+					
+					
+					// board, imgList를 DB에 삽입하는 서비스 호출 후 결과 반환
+					int result = service.insertBoard(board, imgList);
+					
+					if(result > 0) { // 성공
+						message = "게시글이 등록 되었습니다.";
+						
+						// 상세 조회 redirect 주소
+						path = "view?no="+result+"&cp=1";
+					}else { // 실패
+						
+						message = "게시글 등록 중 문제가 발생했습니다.";
+						
+						// 다시 게시글 작성 화면 redirect 주소
+						path = "insert";
 						
 					}
 					
 					
-					
+					session.setAttribute("message", message);
+					resp.sendRedirect(path);
 					
 				}
-				
-				
 			}
 			
 			

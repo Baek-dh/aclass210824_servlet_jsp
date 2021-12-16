@@ -57,6 +57,12 @@
 													</strong>
 												</c:when>
 												<c:otherwise> 
+													
+													<c:if test="${board.imgList[0].imgLevel == 0}">
+														<img src="${contextPath}${board.imgList[0].imgPath}${board.imgList[0].imgName}">
+														
+													</c:if>
+												
 													${board.boardTitle}
 												</c:otherwise>
 											</c:choose>
