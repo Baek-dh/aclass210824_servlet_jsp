@@ -20,6 +20,26 @@
 		INSERT INTO REPLY(REPLY_NO, REPLY_CONTENT, BOARD_NO, MEMBER_NO)
 		VALUES(SEQ_REPLY_NO.NEXTVAL, ?, ?, ?)
 	</entry>
+	
+	
+	<!-- 댓글 수정 -->
+	<entry key="updateReply">
+		UPDATE REPLY SET
+		REPLY_CONTENT = ?
+		WHERE REPLY_NO = ?
+	</entry>
+	
+	<!-- 댓글 삭제 -->
+	<entry key="deleteReply">
+		UPDATE REPLY SET
+		REPLY_STATUS_CD 
+			= (SELECT REPLY_STATUS_CD 
+			   FROM REPLY_STATUS 
+			   WHERE REPLY_STATUS_NM='삭제') 
+		WHERE REPLY_NO = ?
+	</entry>	
+	
+	
 
 
 

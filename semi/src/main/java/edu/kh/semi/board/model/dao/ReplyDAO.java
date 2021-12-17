@@ -102,6 +102,64 @@ public class ReplyDAO {
 		
 		return result;
 	}
+
+	
+	/** 댓글 수정
+	 * @param replyNo
+	 * @param replyContent
+	 * @param conn
+	 * @return result
+	 * @throws Exception
+	 */
+	public int updateReply(int replyNo, String replyContent, Connection conn) throws Exception{
+		int result = 0;
+		
+		try {
+			String sql = prop.getProperty("updateReply");
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, replyContent);
+			pstmt.setInt(2, replyNo);
+
+			result = pstmt.executeUpdate();
+			
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	
+	
+	/** 댓글 삭제
+	 * @param replyNo
+	 * @param conn
+	 * @return result
+	 * @throws Exception
+	 */
+	public int deleteReply(int replyNo, Connection conn) throws Exception{
+		
+		int result = 0;
+		
+		try {
+			String sql = prop.getProperty("deleteReply");
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, replyNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	
+	
+	
 	
 	
 	
