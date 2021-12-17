@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+	<entry key="selectReplyList">
+		SELECT REPLY_NO, REPLY_CONTENT,
+		TO_CHAR(REPLY_CREATE_DT, 'YYYY"년" MM"월" DD"일" HH24"시" MI"분" SS"초"') REPLY_CREATE_DT,
+		BOARD_NO, MEMBER_NO, MEMBER_NM,
+		REPLY_STATUS_CD, REPLY_STATUS_NM
+		FROM REPLY
+		JOIN MEMBER USING(MEMBER_NO)
+		JOIN REPLY_STATUS USING(REPLY_STATUS_CD)
+		WHERE REPLY_STATUS_NM != '삭제'
+		AND BOARD_NO = ?
+		ORDER BY REPLY_NO DESC 
+	</entry>
+
+	<!-- 댓글 삽입 -->
+	<entry key="insertReply">
+		INSERT INTO REPLY(REPLY_NO, REPLY_CONTENT, BOARD_NO, MEMBER_NO)
+		VALUES(SEQ_REPLY_NO.NEXTVAL, ?, ?, ?)
+	</entry>
+
+
+
+</properties>

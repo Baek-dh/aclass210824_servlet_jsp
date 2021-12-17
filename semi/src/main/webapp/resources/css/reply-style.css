@@ -1,0 +1,22 @@
+/*댓글*/
+.replyWrite>table {	margin-top: 100px; }
+.rWriter {
+	display: inline-block;
+	vertical-align: top;
+	font-size : 1.2em;
+	font-weight: bold;
+}
+.rDate { display: inline-block; }
+.rContent, .replyBtnArea {
+	/* height: 100%; */
+	width: 100%;
+}
+.replyBtnArea { text-align: right; }
+.replyUpdateContent {
+	resize: none;
+	width: 100%;
+}
+.reply-row{
+	border-top : 1px solid #ccc;
+	padding : 15px 0;
+}
